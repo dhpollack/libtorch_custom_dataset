@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# vim files
+*.swp
+.syntastic_cpp_config
+
+# build and third party folders
+build/
+build_*/
+third_party/
