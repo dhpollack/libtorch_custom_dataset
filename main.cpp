@@ -32,11 +32,10 @@ int main() {
 
   CustomDataset<> ds(examples_);
   auto ds_map = ds.map(data::transforms::Stack<ThreeTensorInput<>>());
-  auto dl = data::make_data_loader<data::samplers::SequentialSampler>(move(ds_map), batch_size);
+  auto dl = data::make_data_loader<data::samplers::SequentialSampler>(
+      move(ds_map), batch_size);
   for (auto &mb : *dl) {
-    cout << mb.inputone << "\n"
-         << mb.inputtwo << "\n"
-         << mb.label << endl;
+    cout << mb.inputone << "\n" << mb.inputtwo << "\n" << mb.label << endl;
   }
 
   return 1;

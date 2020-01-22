@@ -6,8 +6,10 @@
 #include "custom_input_type.h"
 
 template <>
-struct torch::data::transforms::Stack<ThreeTensorInput<>> : public torch::data::transforms::Collation<ThreeTensorInput<>> {
-  ThreeTensorInput<> apply_batch(std::vector<ThreeTensorInput<>> examples) override {
+struct torch::data::transforms::Stack<ThreeTensorInput<>>
+    : public torch::data::transforms::Collation<ThreeTensorInput<>> {
+  ThreeTensorInput<>
+  apply_batch(std::vector<ThreeTensorInput<>> examples) override {
     std::vector<torch::Tensor> inputone, inputtwo, label;
     inputone.reserve(examples.size());
     inputtwo.reserve(examples.size());
@@ -17,7 +19,7 @@ struct torch::data::transforms::Stack<ThreeTensorInput<>> : public torch::data::
       inputtwo.push_back(std::move(example.inputtwo));
       label.push_back(std::move(example.label));
     }
-    return {torch::stack(inputone), torch::stack(inputtwo), torch::stack(label)};
+    return {torch::stack(inputone), torch::stack(inputtwo),
+            torch::stack(label)};
   }
 };
-

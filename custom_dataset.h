@@ -24,8 +24,5 @@ private:
   std::vector<CustomExampleType> examples_;
 };
 
-// the following lines are required for the compiler to link everything
-// correctly
+// the following line is required for the linker to work correctly
 template class CustomDataset<>; // add our custom example with default argument
-//template class CustomDataset<torch::data::Example<>>; // add the original
-                                                      // pytorch Example
