@@ -22,15 +22,19 @@ int main() {
     ones.push_back(torch::rand({2, 3}));
     twos.push_back(torch::rand({3, 2}));
     labels.push_back(torch::randint(5, 1));
-    ThreeTensorInput<> inp = {ones[i], twos[i], labels[i]};
-    examples_.push_back(inp);
+    examples_.emplace_back(ones[i], twos[i], labels[i]);
   }
 
+  CustomDataset<> ds(examples_);
+  
+  assert((static_cast<size_t>(dataset_sz), ds.size().value()));
+  
+  auto ex = ds.get(0);
+  
   cout << examples_[0].inputone << "\n"
        << examples_[0].inputtwo << "\n"
        << examples_[0].label << endl;
 
-  CustomDataset<> ds(examples_);
   auto ds_map = ds.map(data::transforms::Stack<ThreeTensorInput<>>());
   auto dl = data::make_data_loader<data::samplers::SequentialSampler>(
       move(ds_map), batch_size);
